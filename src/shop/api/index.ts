@@ -1,5 +1,6 @@
 import * as ShopifyAPI from 'shopify-api-node'
 import * as _ from 'lodash'
+import { ListrTask } from 'listr';
 
 export enum ShopifyAPIResourceName {
   Products = "product",
@@ -12,7 +13,11 @@ export default class API {
 
   constructor(config: ShopifyAPI.IPublicShopifyConfig) {
     if (config.autoLimit === undefined) {
-      config.autoLimit = true
+      config.autoLimit = {
+        bucketSize: 1,
+        interval: 500,
+        calls: 1,
+      }
     }
     this.shopifyAPI = new ShopifyAPI(config)
   }
@@ -26,11 +31,11 @@ export default class API {
         new Promise((resolve, reject) => {
           Resource.delete(resource.id)
           .then(data => {
-            resolve(data)
             callback()
+            resolve(data)
           })
           .catch(error => {
-            reject(error)
+            callback(false)
           })
         })
       )
@@ -47,6 +52,7 @@ export default class API {
       ...queryParams,
       limit: 250,
     }
+    // @ts-ignore
     const resourceCount = await Resource.count(resourceParams)
 
     const pages = Math.ceil(resourceCount / 250);

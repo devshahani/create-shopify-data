@@ -1,22 +1,16 @@
-import {Command, flags} from '@oclif/command'
-import Shop from '../shop'
 import TaskManager from '../utilities/taskmanager'
-import { ListrTask } from 'listr'
+import { ListrTask, ListrTaskWrapper } from 'listr'
 import Base from './base';
 import CommandHelpers from '../helpers/commands'
-import API from '../shop/api'
 import {ShopifyAPIResourceName} from '../shop/api'
-
-type DeleteContext = {
-  myshopifyDomain: string,
-  accessToken: string,
-  resources?: any[],
-  API: API,
-  resourceName: ShopifyAPIResourceName,
-}
+import { DeleteContext } from '../types/commands';
 
 export default class Delete extends Base {
   static description = 'Delete all orders from your Shopify store.'
+
+  static flags = {
+    ...Base.flags,
+  }
 
   static args = [
     {
@@ -26,19 +20,16 @@ export default class Delete extends Base {
     },
   ]
   async run() {
-    const {args} = this.parse(Delete)
+    const {args, flags} = this.parse(Delete)
     const {resource} = args
+    const {interval} = flags
 
     const taskManager = new TaskManager()
     taskManager
       .addTask('Validate request', setResourceName(resource))
       .addTask('Validate access token for active shop', CommandHelpers.validateActiveShop)
-      .addTask('Initialize Shopify API', async (ctx: DeleteContext, task: ListrTask) => {
-        ctx.API = new Shop.API({
-          shopName: ctx.myshopifyDomain,
-          accessToken: ctx.accessToken,
-        })
-      })
+      .addTask('Initialize Shopify API', CommandHelpers.apiInitializer(parseInt(interval!)))
+      .addTask('Check dependencies', CommandHelpers.checkDependencies)
       .addTask(`Download ${resource} ids`, async (ctx: DeleteContext, task: ListrTask) => {
         const { API } = ctx
         ctx.resources = await API.allResources(ctx.resourceName)
@@ -52,8 +43,11 @@ export default class Delete extends Base {
         task.title = `Download ${resource} ids | ${this.status.count} downloaded`
       })
       .addTask('Delete resources', async (ctx:
-        DeleteContext, task: ListrTask) => {
-        await ctx.API.deleteAllResources(ctx.resourceName, ctx.resources!, this.incrementStatus)
+        DeleteContext, task: ListrTaskWrapper) => {
+        if (ctx.resources!.length <= 0) {
+          task.skip(`No items available`)
+        }
+        await ctx.API.deleteAllResources(ctx.resourceName, ctx.resources!, this.incrementStatus(task))
       })
       .execute()
       .then(_ => {

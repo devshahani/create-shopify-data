@@ -1,5 +1,6 @@
 import {Command, flags} from '@oclif/command'
 import { string } from '@oclif/command/lib/flags';
+import { ListrTask, ListrTaskWrapper } from 'listr';
 
 type GeneratorProgress = {
   count: number,
@@ -24,27 +25,30 @@ export default abstract class extends Command {
     }
   }
 
-  incrementStatus = (success: boolean = true) => {
-    if (success) {
-      this.status.success++
-    } else {
-      this.status.failure++
+  incrementStatus = (task: ListrTaskWrapper) => {
+    return (success: boolean = true) => {
+      if (success) {
+        this.status.success++
+      } else {
+        this.status.failure++
+      }
+      task.title = `${this.status.count} resources | ${this.status.success} completed, ${this.status.failure} failed`
     }
   }
 
   static flags = {
-    delay: flags.string({
-      char: 'd',
-      name: 'delay',
+    interval: flags.string({
+      char: 'i',
+      name: 'interval',
       parse: (input) => {
-        if (parseFloat(input) < 0.5) {
-          return "0.5"
+        if (parseInt(input) < 500) {
+          return "500"
         } else {
           return input
         }
       },
-      default: '0.5',
-      description: 'Specify the delay (in seconds) between each Shopify API request. Default (and min) is 0.5'}
+      default: '500',
+      description: 'Specify the interval (in ms) between each Shopify API request. Default (and min) is 500'}
     )
   }
 }
