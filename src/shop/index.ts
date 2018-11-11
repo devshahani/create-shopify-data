@@ -2,7 +2,7 @@ import axios from 'axios'
 import * as Configstore from 'configstore'
 import * as keytar from 'keytar'
 
-import * as API from 'shopify-api-node'
+import API from './api'
 
 const enum StorageNames {
   AppName = 'create-shopify-data',
@@ -13,17 +13,22 @@ const config = new Configstore('create-shopify-data', {
   activeShop: undefined
 })
 
+type ValidatedShopType = {
+  myshopifyDomain: string,
+  accessToken: string,
+}
+
 export default {
-  addIdentity(shop: string, accessToken: string){
-    return new Promise(async (resolve, reject) => {
+  API,
+  validateActiveIdentity() {
+    return new Promise<ValidatedShopType>(async (resolve, reject) => {
       try {
-        const myshopifyDomain = this.validateAndCleanDomain(shop)
+        const myshopifyDomain = this.getActiveShop()
+        const accessToken = await this.getAccessTokenForShop(myshopifyDomain)
         await this.validateAccessToken(myshopifyDomain, accessToken)
-        await this.addToKeychain(myshopifyDomain, accessToken)
-        this.setActiveShop(myshopifyDomain)
-        resolve()
+        resolve({myshopifyDomain, accessToken})
       } catch(error) {
-        reject(error)
+        reject(new Error(error))
       }
     })
   },
@@ -37,7 +42,6 @@ export default {
       throw new Error(errorMessage)
     }
   },
-  API,
   validateAccessToken(myshopifyDomain: string, accessToken: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       axios
@@ -79,16 +83,16 @@ export default {
     }
   },
   getAccessTokenForShop(myshopifyDomain: string) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<string>(async (resolve, reject) => {
       keytar
         .getPassword(StorageNames.AppName, myshopifyDomain)
         .then(accessToken =>
           accessToken
             ? resolve(accessToken)
-            : reject("Could not find requested credentials")
+            : reject(new Error(`Could not find an access token for ${myshopifyDomain}`))
         )
         .catch(error => {
-          reject('Could not access credential storage.')
+          reject(new Error('Could not access credential storage.'))
         })
     })
   },

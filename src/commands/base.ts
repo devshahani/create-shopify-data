@@ -1,24 +1,50 @@
 import {Command, flags} from '@oclif/command'
+import { string } from '@oclif/command/lib/flags';
+
+type GeneratorProgress = {
+  count: number,
+  success: number,
+  failure: number,
+  message?: string,
+}
 
 export default abstract class extends Command {
-  // static description = 'base class'
+  static hidden= true
 
-  //   static examples = [
-  //     `$ create-shopify-data hello
-  // hello world from ./src/hello.ts!
-  // `
-  //   ]
-
-  // method to check whether active shop has valid access token
-
-  static flags = {
-    delay: flags.help({char: 'd', description: 'Specify the delay (in seconds) between each Shopify API request. Default (and min) is 0.5'})
-    // flag with a value (-n, --name=VALUE)
-    // name: flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    // force: flags.boolean({char: 'f'})
+  status: GeneratorProgress = {
+    count: 0,
+    success: 0,
+    failure: 0,
   }
 
-  static args = [{name: 'file'}]
+  setStatus = (newStatus: GeneratorProgress) => {
+    this.status = {
+      ...this.status,
+      ...newStatus,
+    }
+  }
 
+  incrementStatus = (success: boolean = true) => {
+    if (success) {
+      this.status.success++
+    } else {
+      this.status.failure++
+    }
+  }
+
+  static flags = {
+    delay: flags.string({
+      char: 'd',
+      name: 'delay',
+      parse: (input) => {
+        if (parseFloat(input) < 0.5) {
+          return "0.5"
+        } else {
+          return input
+        }
+      },
+      default: '0.5',
+      description: 'Specify the delay (in seconds) between each Shopify API request. Default (and min) is 0.5'}
+    )
+  }
 }

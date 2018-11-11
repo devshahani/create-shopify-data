@@ -45,6 +45,7 @@ export default class Use extends Command {
         this.log(`
 Successfully added ${shop}.
         `)
+        this.exit(0)
       })
       .catch(error => {})
 

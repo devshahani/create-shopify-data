@@ -4,9 +4,23 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "products -q 5000000 -v 4",
+      "program": "${workspaceFolder}/bin/run",
+      "args": ["products", "-q", "5000000", "-v", "4"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "use ping-pong-shop-2 b78225256c317ebf7917d196e96adc03",
       "program": "${workspaceFolder}/bin/run",
       "args": ["use", "ping-pong-shop-2", "b78225256c317ebf7917d196e96adc03"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "delete:products",
+      "program": "${workspaceFolder}/bin/run",
+      "args": ["delete:products"]
     }
   ]
 }

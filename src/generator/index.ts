@@ -1,4 +1,6 @@
 export default {
-  createProducts: undefined,
+  createProducts() {
+    return []
+  },
   createOrders: undefined
 }
