@@ -1,4 +1,4 @@
-export default apparel: Product[] = [
+const apparel: Product[] = [
   {
     handle: 'ocean-blue-shirt',
     images: [

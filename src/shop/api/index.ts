@@ -2,6 +2,8 @@ import * as ShopifyAPI from 'shopify-api-node'
 import * as _ from 'lodash'
 import { ListrTask, ListrTaskWrapper } from 'listr';
 import { __await } from 'tslib';
+import { rejects } from 'assert';
+import { resolve } from 'path';
 
 export enum ShopifyAPIResourceName {
   Products = "product",
@@ -23,20 +25,28 @@ export default class API {
     this.shopifyAPI = new ShopifyAPI(config)
   }
 
-  async deleteAllResources(resourceName: ShopifyAPIResourceName, resources: any[], callback: any) {
+  async deleteAllResources(resourceName: ShopifyAPIResourceName, resources: any[], task: ListrTaskWrapper) {
     const Resource = this.shopifyAPI[resourceName]
     const promises: any[] = []
+
+    let completedCount = 0
+    let failedCount = 0
+    let lastErrorMessage = ""
 
     resources.forEach(resource => {
       promises.push(
         new Promise((resolve, reject) => {
           Resource.delete(resource.id)
           .then(data => {
-            callback()
+            completedCount++
+            task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
             resolve(data)
           })
           .catch(error => {
-            callback(false)
+            failedCount++
+            lastErrorMessage = `(${error.statusMessage})`
+            task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
+            resolve()
           })
         })
       )
@@ -60,16 +70,20 @@ export default class API {
     let failedCount = 0
     let lastErrorMessage = ""
     let promises = orders.map(order => {
-      return this.shopifyAPI.order.create(order)
+      return new Promise((resolve, reject) => {
+        this.shopifyAPI.order.create(order)
         .then(_ => {
           completedCount++
           task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
+          resolve()
         })
         .catch(error => {
           failedCount++
           lastErrorMessage = `(${error.statusMessage})`
           task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
+          resolve()
         })
+      })
     })
 
     await Promise.all(promises)

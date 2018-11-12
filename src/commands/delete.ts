@@ -47,7 +47,7 @@ export default class Delete extends Base {
         if (ctx.resources!.length <= 0) {
           task.skip(`No items available`)
         }
-        await ctx.API.deleteAllResources(ctx.resourceName, ctx.resources!, this.incrementStatus(task))
+        await ctx.API.deleteAllResources(ctx.resourceName, ctx.resources!, task)
       })
       .execute()
       .then(_ => {

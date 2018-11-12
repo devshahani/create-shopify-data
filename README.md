@@ -8,15 +8,14 @@ Generate data for your Shopify store
 [![License](https://img.shields.io/npm/l/create-shopify-data.svg)](https://github.com/devshahani/create-shopify-data/blob/master/package.json)
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
-  <!-- tocstop -->
+* [create-shopify-data](#create-shopify-data)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g create-shopify-data
 $ create-shopify-data COMMAND
@@ -28,35 +27,13 @@ USAGE
   $ create-shopify-data COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`create-shopify-data delete [FILE]`](#create-shopify-data-delete-file)
-- [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
-- [`create-shopify-data products`](#create-shopify-data-products)
-- [`create-shopify-data use SHOP ACCESSTOKEN`](#create-shopify-data-use-shop-accesstoken)
-
-_See code: [src/commands/base.ts](https://github.com/devshahani/create-shopify-data/blob/v0.0.0/src/commands/base.ts)_
-
-## `create-shopify-data delete [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ create-shopify-data delete [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-```
-
-_See code: [src/commands/delete.ts](https://github.com/devshahani/create-shopify-data/blob/v0.0.0/src/commands/delete.ts)_
+* [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
+* [`create-shopify-data use SHOP ACCESS_TOKEN`](#create-shopify-data-use-shop-access-token)
 
 ## `create-shopify-data help [COMMAND]`
 
@@ -75,34 +52,17 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.3/src/commands/help.ts)_
 
-## `create-shopify-data products`
-
-Create dummy products for your shopify store
-
-```
-USAGE
-  $ create-shopify-data products
-
-OPTIONS
-  -h, --help               show CLI help
-  -q, --quantity=quantity  number of products to create. if provided uses random data generator
-  -v, --variants=variants  number of variants per product to create (range)
-```
-
-_See code: [src/commands/products.ts](https://github.com/devshahani/create-shopify-data/blob/v0.0.0/src/commands/products.ts)_
-
-## `create-shopify-data use SHOP ACCESSTOKEN`
+## `create-shopify-data use SHOP ACCESS_TOKEN`
 
 Enter your myshopify domain (e.g ping-pong-shop-2) along with an access token (https://help.shopify.com/en/api/getting-started/authentication/private-authentication). Once authenticated, your credentials persist over usage sessions.
 
 ```
 USAGE
-  $ create-shopify-data use SHOP ACCESSTOKEN
+  $ create-shopify-data use SHOP ACCESS_TOKEN
 
 OPTIONS
   -h, --help  show CLI help
 ```
 
 _See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.0.0/src/commands/use.ts)_
-
 <!-- commandsstop -->
