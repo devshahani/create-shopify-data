@@ -58,15 +58,17 @@ export default class API {
   async uploadOrders(orders: any[], task: ListrTaskWrapper) {
     let completedCount = 0
     let failedCount = 0
+    let lastErrorMessage = ""
     let promises = orders.map(order => {
       return this.shopifyAPI.order.create(order)
         .then(_ => {
           completedCount++
-          task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed`
+          task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
         })
-        .catch(_ => {
+        .catch(error => {
           failedCount++
-          task.title = `${completedCount} completed`
+          lastErrorMessage = `(${error.statusMessage})`
+          task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
         })
     })
 
