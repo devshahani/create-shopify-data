@@ -21,7 +21,7 @@ $ npm install -g create-shopify-data
 $ create-shopify-data COMMAND
 running command...
 $ create-shopify-data (-v|--version|version)
-create-shopify-data/0.0.0 darwin-x64 node-v10.12.0
+create-shopify-data/0.1.0 darwin-x64 node-v10.12.0
 $ create-shopify-data --help [COMMAND]
 USAGE
   $ create-shopify-data COMMAND
@@ -64,5 +64,5 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.0.0/src/commands/use.ts)_
+_See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.0/src/commands/use.ts)_
 <!-- commandsstop -->
