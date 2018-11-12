@@ -2,31 +2,36 @@ import * as _ from 'lodash'
 import * as faker from 'faker'
 import Generator from '../index'
 
-export default (quantity: number, variants: any[]) => {
-  const orders = _.times(quantity, () =>
-    createOrder(_.sample(variants))
-  );
+export default (quantity: number, variants: any[], customers: any[], backdate: number) => {
+  const orders = customers.map(customer => {
+    return createOrder(_.sampleSize(variants, _.random(1, 10)), customer)
+  })
   return orders;
 };
 
-function createOrder(variant: any) {
+function createOrder(variants: any[], customer: any) {
+  let orderPrice = 0
 
   const order = {}
   // @ts-ignore
   order.financial_status = 'paid';
   // @ts-ignore
-  order.tags = 'developer-tools-generator';
+  order.tags = 'create-shopify-data';
   // @ts-ignore
   order.test = true;
   // @ts-ignore
-  order.line_items = _.times(_.sample([1, 1, 1, 1, 2, 3]), () => {
-    const variant = _.sample(availableVariants);
-    orderPrice += parseFloat(variant.price);
+  order.customer = customer
+  // @ts-ignore
+  order.shipping_address = customer.addresses[0]
+  // @ts-ignore
+  order.line_items = variants.map(variant => {
+    orderPrice += parseFloat(variant.price)
     return {
       variant_id: variant.id,
-      quantity: _.sample([1, 1, 1, 1, 2, 3]),
-    };
-  });
+      quantity: _.sample([1, 1, 1, 1, 2, 3])
+    }
+  })
+  // @ts-ignore
   order.transactions = [
     {
       kind: 'sale',
@@ -36,7 +41,7 @@ function createOrder(variant: any) {
       gateway: 'bogus',
     },
   ];
-  order.customer = Generator.createCustomers(1)
+
   // switch (ordersDateRange) {
   //   case 'year':
   //     order.processed_at = moment()

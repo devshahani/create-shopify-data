@@ -13,13 +13,18 @@ export default (quantity: number) => {
 function createCustomer() {
   const first_name = faker.fake(`{{name.firstName}}`);
   const last_name = faker.fake(`{{name.lastName}}`);
-  const email = `${first_name}.${last_name}.${_.random(0, 10000000)}@create-shopify-data.com`
+  const email = `${first_name}.${last_name}.${_.random(0, 10000000)}@developer-tools.com`
   const customer = {
     first_name: first_name,
     last_name: last_name,
     email: email,
     verified_email: true,
-    addresses: [AddressManager.random()],
+    addresses: [{
+      ...AddressManager.random(),
+      first_name: first_name,
+      last_name: last_name,
+      phone: faker.phone.phoneNumber(),
+    }],
     tags: 'create-shopify-data',
   };
   return customer;

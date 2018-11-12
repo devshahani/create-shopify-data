@@ -1,6 +1,7 @@
 import * as ShopifyAPI from 'shopify-api-node'
 import * as _ from 'lodash'
-import { ListrTask } from 'listr';
+import { ListrTask, ListrTaskWrapper } from 'listr';
+import { __await } from 'tslib';
 
 export enum ShopifyAPIResourceName {
   Products = "product",
@@ -52,6 +53,24 @@ export default class API {
     })
     const variants = _.map(products, 'variants')
     return _.flattenDeep(variants)
+  }
+
+  async uploadOrders(orders: any[], task: ListrTaskWrapper) {
+    let completedCount = 0
+    let failedCount = 0
+    let promises = orders.map(order => {
+      return this.shopifyAPI.order.create(order)
+        .then(_ => {
+          completedCount++
+          task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed`
+        })
+        .catch(_ => {
+          failedCount++
+          task.title = `${completedCount} completed`
+        })
+    })
+
+    await Promise.all(promises)
   }
 
   async allResources(resourceName: ShopifyAPIResourceName) {

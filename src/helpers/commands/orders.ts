@@ -3,6 +3,7 @@ import { ShopifyAPIResourceName } from '../../shop/api';
 import { DeleteContext, CreateOrdersContext } from '../../types/commands';
 import * as Listr from 'listr'
 import { IPublicShopifyConfig } from 'shopify-api-node';
+import Generator from '../../generator';
 
 export default {
   async downloadLatestProducts(ctx: CreateOrdersContext, task: Listr.ListrTaskWrapper) {
@@ -13,9 +14,10 @@ export default {
     task.title = `${ctx.variants.length} variants downloaded`
   },
   async generateOrdersData(ctx: CreateOrdersContext, task: Listr.ListrTaskWrapper) {
-    throw new Error(`${ctx.interval}`)
+    ctx.customers = Generator.createCustomers(ctx.quantity)
+    ctx.orders = Generator.createOrders(ctx.quantity, ctx.variants!, ctx.customers, ctx.backdate)
   },
   async sendOrdersCalls(ctx: CreateOrdersContext, task: Listr.ListrTaskWrapper) {
-
+    await ctx.API.uploadOrders(ctx.orders!, task)
   }
 }
