@@ -1,5 +1,4 @@
-create-shopify-data
-===================
+# create-shopify-data
 
 Generate data for your Shopify store
 
@@ -9,11 +8,15 @@ Generate data for your Shopify store
 [![License](https://img.shields.io/npm/l/create-shopify-data.svg)](https://github.com/devshahani/create-shopify-data/blob/master/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g create-shopify-data
 $ create-shopify-data COMMAND
@@ -25,32 +28,17 @@ USAGE
   $ create-shopify-data COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`create-shopify-data base [FILE]`](#create-shopify-data-base-file)
-* [`create-shopify-data delete [FILE]`](#create-shopify-data-delete-file)
-* [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
-* [`create-shopify-data products`](#create-shopify-data-products)
-* [`create-shopify-data use SHOP ACCESSTOKEN`](#create-shopify-data-use-shop-accesstoken)
 
-## `create-shopify-data base [FILE]`
-
-base class
-
-```
-USAGE
-  $ create-shopify-data base [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ create-shopify-data hello
-  hello world from ./src/hello.ts!
-```
+- [`create-shopify-data delete [FILE]`](#create-shopify-data-delete-file)
+- [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
+- [`create-shopify-data products`](#create-shopify-data-products)
+- [`create-shopify-data use SHOP ACCESSTOKEN`](#create-shopify-data-use-shop-accesstoken)
 
 _See code: [src/commands/base.ts](https://github.com/devshahani/create-shopify-data/blob/v0.0.0/src/commands/base.ts)_
 
@@ -116,4 +104,5 @@ OPTIONS
 ```
 
 _See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.0.0/src/commands/use.ts)_
+
 <!-- commandsstop -->

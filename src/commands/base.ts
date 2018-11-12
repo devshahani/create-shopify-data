@@ -40,15 +40,8 @@ export default abstract class extends Command {
     interval: flags.string({
       char: 'i',
       name: 'interval',
-      parse: (input) => {
-        if (parseInt(input) < 500) {
-          return "500"
-        } else {
-          return input
-        }
-      },
       default: '500',
       description: 'Specify the interval (in ms) between each Shopify API request. Default (and min) is 500'}
-    )
+    ),
   }
 }

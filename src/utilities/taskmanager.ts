@@ -16,7 +16,11 @@ export default class {
     return this;
   }
 
-  execute() {
-    return new Listr(this.tasks).run()
+  execute(context?: any) {
+    return new Listr(this.tasks).run(context)
+  }
+
+  _execute() {
+    return new Listr(this.tasks)
   }
 }

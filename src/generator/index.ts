@@ -1,6 +1,10 @@
+import createCustomers from './customers'
+import createOrders from './orders'
+
 export default {
   createProducts() {
     return []
   },
-  createOrders: undefined
+  createCustomers,
+  createOrders,
 }

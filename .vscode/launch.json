@@ -4,6 +4,13 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "orders -q 100",
+      "program": "${workspaceFolder}/bin/run",
+      "args": ["orders", "-q", "100"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "products -q 5000000 -v 4",
       "program": "${workspaceFolder}/bin/run",
       "args": ["products", "-q", "5000000", "-v", "4"]

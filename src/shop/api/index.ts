@@ -44,6 +44,16 @@ export default class API {
     await Promise.all(promises)
   }
 
+  async variants() {
+    const api = this.shopifyAPI["product"]
+    const products = await api.list({
+      limit: 250,
+      fields: 'variants'
+    })
+    const variants = _.map(products, 'variants')
+    return _.flattenDeep(variants)
+  }
+
   async allResources(resourceName: ShopifyAPIResourceName) {
     const Resource = this.shopifyAPI[resourceName]
     const queryParams = resourceName === ShopifyAPIResourceName.Orders ? {status: 'any'} : '';

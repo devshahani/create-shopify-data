@@ -1,12 +1,14 @@
-import Shop from '../shop'
-import { ShopifyAPIResourceName } from '../shop/api';
-import { DeleteContext } from '../types/commands';
+import Shop from '../../shop'
+import { ShopifyAPIResourceName } from '../../shop/api';
+import { DeleteContext, CreateOrdersContext } from '../../types/commands';
 import * as Listr from 'listr'
 import { IPublicShopifyConfig } from 'shopify-api-node';
 
-import TaskManager from '../utilities/taskmanager'
+import TaskManager from '../../utilities/taskmanager'
+import orders from './orders'
 
 export default {
+  orders,
   apiInitializer(interval: number) {
     return async (ctx: DeleteContext, task: Listr.ListrTaskWrapper) => {
       const config: IPublicShopifyConfig = {
@@ -30,25 +32,27 @@ export default {
     ctx.accessToken = accessToken
   },
   async checkDependencies(ctx: DeleteContext, task: Listr.ListrTaskWrapper) {
-    const taskManager = new Listr([], {
-      concurrent: true,
-    })
+    const taskManager = new TaskManager()
+
     const resourceName = ctx.resourceName
     switch(resourceName) {
       case ShopifyAPIResourceName.Customers:
-        taskManager.add([{
-          title: 'Ensure no orders exist',
-          task: async () => {
+        taskManager.addTask(
+          'Ensure no orders exist',
+          async () => {
             const ordersCount = await ctx.API.shopifyAPI.order.count()
             if (ordersCount > 0) {
               throw new Error(`${ordersCount} orders found. Delete all orders before deleting customers`)
             }
           }
-        }])
+        )
         break;
       default:
+        task.title = "No dependencies detected"
         break;
     }
-    return taskManager
-  }
+    // if (taskManager.tasks.length > 0) {
+      return taskManager._execute()
+    // }
+  },
 }
