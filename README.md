@@ -1,8 +1,9 @@
+🚨 In active development (and extremely unstable)
+
 # create-shopify-data
 
-Generate data for your Shopify store
+Generate dummy data for your Shopify store.
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/create-shopify-data.svg)](https://npmjs.org/package/create-shopify-data)
 [![Downloads/week](https://img.shields.io/npm/dw/create-shopify-data.svg)](https://npmjs.org/package/create-shopify-data)
 [![License](https://img.shields.io/npm/l/create-shopify-data.svg)](https://github.com/devshahani/create-shopify-data/blob/master/package.json)
@@ -32,8 +33,25 @@ USAGE
 # Commands
 
 <!-- commands -->
+* [`create-shopify-data delete RESOURCE`](#create-shopify-data-delete-resource)
 * [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
+* [`create-shopify-data orders`](#create-shopify-data-orders)
 * [`create-shopify-data use SHOP ACCESS_TOKEN`](#create-shopify-data-use-shop-access-token)
+
+## `create-shopify-data delete RESOURCE`
+
+Delete all orders from your Shopify store.
+
+```
+USAGE
+  $ create-shopify-data delete RESOURCE
+
+OPTIONS
+  -i, --interval=interval  [default: 500] Specify the interval (in ms) between each Shopify API request. Default (and
+                           min) is 500
+```
+
+_See code: [src/commands/delete.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.0/src/commands/delete.ts)_
 
 ## `create-shopify-data help [COMMAND]`
 
@@ -51,6 +69,26 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.3/src/commands/help.ts)_
+
+## `create-shopify-data orders`
+
+Create orders using preexisting products
+
+```
+USAGE
+  $ create-shopify-data orders
+
+OPTIONS
+  -b, --backdate=backdate  [default: 0] The max number of months order creation time can be backdated by. Defaults to 0
+                           (no backdate)
+
+  -i, --interval=interval  [default: 500] Specify the interval (in ms) between each Shopify API request. Default (and
+                           min) is 500
+
+  -q, --quantity=quantity  [default: 20] The number of orders you would like to create
+```
+
+_See code: [src/commands/orders.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.0/src/commands/orders.ts)_
 
 ## `create-shopify-data use SHOP ACCESS_TOKEN`
 

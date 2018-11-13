@@ -8,6 +8,7 @@ import { CreateOrdersContext } from '../types/commands';
 import Generator from '../generator'
 export default class Orders extends Base {
   static description = 'Create orders using preexisting products'
+  static hidden= false
 
   static flags = {
     ...Base.flags,

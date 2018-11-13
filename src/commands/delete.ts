@@ -7,6 +7,7 @@ import { DeleteContext } from '../types/commands';
 
 export default class Delete extends Base {
   static description = 'Delete all orders from your Shopify store.'
+  static hidden= false
 
   static flags = {
     ...Base.flags,
