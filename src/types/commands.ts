@@ -26,6 +26,7 @@ export type CreateOrdersContext = {
   orders?: any[],
   customers?:any[],
   API: API,
+  resourceName?: ShopifyAPIResourceName,
 }
 
 export type CreateProductPresetContext = {
@@ -34,4 +35,5 @@ export type CreateProductPresetContext = {
   interval: number,
   products?: any[],
   API: API,
+  resourceName?: ShopifyAPIResourceName,
 }
