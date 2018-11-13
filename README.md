@@ -22,7 +22,7 @@ $ npm install -g create-shopify-data
 $ create-shopify-data COMMAND
 running command...
 $ create-shopify-data (-v|--version|version)
-create-shopify-data/0.1.0 darwin-x64 node-v10.12.0
+create-shopify-data/0.1.1 darwin-x64 node-v10.12.0
 $ create-shopify-data --help [COMMAND]
 USAGE
   $ create-shopify-data COMMAND
@@ -51,7 +51,7 @@ OPTIONS
                            min) is 500
 ```
 
-_See code: [src/commands/delete.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.0/src/commands/delete.ts)_
+_See code: [src/commands/delete.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.1/src/commands/delete.ts)_
 
 ## `create-shopify-data help [COMMAND]`
 
@@ -88,7 +88,7 @@ OPTIONS
   -q, --quantity=quantity  [default: 20] The number of orders you would like to create
 ```
 
-_See code: [src/commands/orders.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.0/src/commands/orders.ts)_
+_See code: [src/commands/orders.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.1/src/commands/orders.ts)_
 
 ## `create-shopify-data use SHOP ACCESS_TOKEN`
 
@@ -102,5 +102,5 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.0/src/commands/use.ts)_
+_See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.1/src/commands/use.ts)_
 <!-- commandsstop -->
