@@ -27,3 +27,11 @@ export type CreateOrdersContext = {
   customers?:any[],
   API: API,
 }
+
+export type CreateProductPresetContext = {
+  myshopifyDomain: string,
+  accessToken: string,
+  interval: number,
+  products?: any[],
+  API: API,
+}

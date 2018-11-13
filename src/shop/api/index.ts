@@ -65,6 +65,32 @@ export default class API {
     return _.flattenDeep(variants)
   }
 
+  async uploadItems(items: any[], task: ListrTaskWrapper, itemType: ShopifyAPIResourceName){
+    let completedCount = 0
+    let failedCount = 0
+    let lastErrorMessage = ""
+    let promises = items.map(item => {
+      return new Promise((resolve, reject) => {
+        // @ts-ignore
+        this.shopifyAPI[itemType].create(item)
+          .then((_: any) => {
+            completedCount++
+            task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
+            resolve()
+          })
+          .catch((error: any) => {
+            failedCount++
+            lastErrorMessage = `(${error.statusMessage})`
+            task.title = `Send API requests | ${completedCount} completed, ${failedCount} failed ${lastErrorMessage}`
+            resolve()
+          })
+      })
+    })
+
+    await Promise.all(promises)
+
+  }
+
   async uploadOrders(orders: any[], task: ListrTaskWrapper) {
     let completedCount = 0
     let failedCount = 0
