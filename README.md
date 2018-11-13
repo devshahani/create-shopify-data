@@ -2,21 +2,30 @@
 
 # create-shopify-data
 
-Generate dummy data for your Shopify store.
-
 [![Version](https://img.shields.io/npm/v/create-shopify-data.svg)](https://npmjs.org/package/create-shopify-data)
 [![Downloads/week](https://img.shields.io/npm/dw/create-shopify-data.svg)](https://npmjs.org/package/create-shopify-data)
 [![License](https://img.shields.io/npm/l/create-shopify-data.svg)](https://github.com/devshahani/create-shopify-data/blob/master/package.json)
 
+Generate dummy data for your Shopify store.
+
+## To-do:
+
+- [x] Delete products, customers, orders
+- [x] Create orders
+- [ ] Create products
+- [ ] Tests
+
 <!-- toc -->
-* [create-shopify-data](#create-shopify-data)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [create-shopify-data](#create-shopify-data)
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g create-shopify-data
 $ create-shopify-data COMMAND
@@ -28,15 +37,17 @@ USAGE
   $ create-shopify-data COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`create-shopify-data delete RESOURCE`](#create-shopify-data-delete-resource)
-* [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
-* [`create-shopify-data orders`](#create-shopify-data-orders)
-* [`create-shopify-data use SHOP ACCESS_TOKEN`](#create-shopify-data-use-shop-access-token)
+
+- [`create-shopify-data delete RESOURCE`](#create-shopify-data-delete-resource)
+- [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
+- [`create-shopify-data orders`](#create-shopify-data-orders)
+- [`create-shopify-data use SHOP ACCESS_TOKEN`](#create-shopify-data-use-shop-access-token)
 
 ## `create-shopify-data delete RESOURCE`
 
@@ -103,4 +114,5 @@ OPTIONS
 ```
 
 _See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.1.1/src/commands/use.ts)_
+
 <!-- commandsstop -->

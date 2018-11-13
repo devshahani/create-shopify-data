@@ -8,7 +8,7 @@ type UseContext = {
 
 export default class Use extends Command {
   static description =
-    'Enter your myshopify domain (e.g ping-pong-shop-2) along with an access token (https://help.shopify.com/en/api/getting-started/authentication/private-authentication). Once authenticated, your credentials persist over usage sessions.'
+    'Enter your myshopify domain (e.g ping-pong-shop-2) along with an access token or private app password (https://help.shopify.com/en/api/getting-started/authentication/private-authentication). Once authenticated, your credentials persist over usage sessions.'
 
   static flags = {
     help: flags.help({char: 'h'})

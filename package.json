@@ -54,7 +54,9 @@
   ],
   "homepage": "https://github.com/devshahani/create-shopify-data",
   "keywords": [
-    "oclif"
+    "developer tools",
+    "shopify",
+    "data generator"
   ],
   "license": "MIT",
   "main": "lib/index.js",
