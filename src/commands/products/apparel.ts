@@ -8,7 +8,7 @@ import { PresetProductTypes } from '../../types/generator';
 import { ShopifyAPIResourceName } from '../../shop/api';
 
 export default class ProductsApparel extends Base {
-  static description = 'Create orders using preexisting products'
+  static description = 'Create products using the apparel preset'
   static hidden= false
 
   static flags = {

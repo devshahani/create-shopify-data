@@ -17,16 +17,14 @@ Generate dummy data for your Shopify store.
 - [ ] Tests
 
 <!-- toc -->
-
-- [create-shopify-data](#create-shopify-data)
-- [Usage](#usage)
-- [Commands](#commands)
-  <!-- tocstop -->
+* [create-shopify-data](#create-shopify-data)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g create-shopify-data
 $ create-shopify-data COMMAND
@@ -38,18 +36,16 @@ USAGE
   $ create-shopify-data COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`create-shopify-data delete RESOURCE`](#create-shopify-data-delete-resource)
-- [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
-- [`create-shopify-data orders`](#create-shopify-data-orders)
-- [`create-shopify-data products:apparel`](#create-shopify-data-productsapparel)
-- [`create-shopify-data use SHOP ACCESS_TOKEN`](#create-shopify-data-use-shop-access-token)
+* [`create-shopify-data delete RESOURCE`](#create-shopify-data-delete-resource)
+* [`create-shopify-data help [COMMAND]`](#create-shopify-data-help-command)
+* [`create-shopify-data orders`](#create-shopify-data-orders)
+* [`create-shopify-data products:apparel`](#create-shopify-data-productsapparel)
+* [`create-shopify-data use SHOP ACCESS_TOKEN`](#create-shopify-data-use-shop-access-token)
 
 ## `create-shopify-data delete RESOURCE`
 
@@ -131,5 +127,4 @@ OPTIONS
 ```
 
 _See code: [src/commands/use.ts](https://github.com/devshahani/create-shopify-data/blob/v0.2.0/src/commands/use.ts)_
-
 <!-- commandsstop -->
