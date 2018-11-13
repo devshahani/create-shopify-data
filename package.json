@@ -1,7 +1,7 @@
 {
   "name": "create-shopify-data",
   "description": "Generate data for your Shopify store",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "dev shahani @devshahani",
   "bin": {
     "create-shopify-data": "./bin/run"
